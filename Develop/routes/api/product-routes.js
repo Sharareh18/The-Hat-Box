@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
-
 // find all products
 router.get('/', async (req, res) => {
   try {
@@ -12,18 +11,16 @@ router.get('/', async (req, res) => {
           {
             model: Category,
             model: Tag,
-            attributes: ['tag_name'],
-            through: ProductTag,
-            as: 'ProductTag_Tag'
           }
         ],
     });
     res.status(200).json(dbProductData);
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
+// The `/api/products/id endpoint
 // find a single product by its `id`
 router.get('/:id', async (req, res) => {
   try {
@@ -33,9 +30,6 @@ router.get('/:id', async (req, res) => {
           {
             model: Category,
             model: Tag,
-            attributes: ['tag_name'],
-            through: ProductTag,
-            as: 'ProductTag_Tag'
           }
         ],
     });
@@ -46,7 +40,7 @@ router.get('/:id', async (req, res) => {
     res.status(200).json(dbProductData);
   } catch (err) {
     // console.log(err);
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
@@ -78,7 +72,7 @@ router.post('/', (req, res) => {
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
       // console.log(err);
-      res.status(400).json(err);
+      res.status(500).json(err);
     });
 });
 
@@ -120,13 +114,13 @@ router.put('/:id', (req, res) => {
           .then((updatedProductTags) => res.json(updatedProductTags))
           .catch((err) => {
             // console.log(err);
-            res.status(400).json(err);
+            res.status(500).json(err);
           });
       }
     });
 });
 
- // delete one product by its `id` value
+// delete one product by its `id` value
 router.delete('/:id', async (req, res) => {
   try {
     const dbProductData = await Product.destroy({
@@ -141,7 +135,7 @@ router.delete('/:id', async (req, res) => {
     res.status(200).json(dbProductData);
   } catch (err) {
     // console.log(err)
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 

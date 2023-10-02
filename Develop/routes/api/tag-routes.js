@@ -7,14 +7,14 @@ router.get('/', async (req, res) => {
   try {
     const dbTagData = await Tag.findAll({
       include: [
-        { 
-          model: Product 
+        {
+          model: Product
         }
       ],
     });
     res.status(200).json(dbTagData);
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
@@ -35,7 +35,7 @@ router.get('/:id', async (req, res) => {
     }
     res.status(200).json(dbTagData);
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
     const dbTagData = await Tag.create(req.body);
     res.status(200).json(dbTagData);
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
@@ -66,7 +66,7 @@ router.put('/:id', async (req, res) => {
     res.status(200).json(dbTagData);
   }
   catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
@@ -86,7 +86,7 @@ router.delete('/:id', async (req, res) => {
     res.status(200).json(dbTagData);
   }
   catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
